@@ -5,7 +5,7 @@
 ssh -T git@github.com
 git add .gitignore
 git add .
-git remote add origin https://github.com/nooransari911/fyle-interview-intern-backend.git
+# git remote add origin https://github.com/nooransari911/fyle-interview-intern-backend.git
 git remote set-url origin git@github.com:nooransari911/fyle-interview-intern-backend.git
 echo "Enter commit message:"
 read commit_message

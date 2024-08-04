@@ -1,5 +1,9 @@
 from core import db
 from core.libs import helpers
+from marshmallow import Schema, EXCLUDE, fields, post_load
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
+
+
 
 
 class User(db.Model):
@@ -19,9 +23,10 @@ class User(db.Model):
         return db_query.filter(*criterion)
 
     @classmethod
-    def get_by_id(cls, _id):
-        return cls.filter(cls.id == _id).first()
+    def get_by_id(cls, id):
+        return cls.filter(cls.id == id).first()
 
     @classmethod
     def get_by_email(cls, email):
         return cls.filter(cls.email == email).first()
+

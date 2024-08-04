@@ -1,5 +1,7 @@
 from core import db
 from core.libs import helpers
+from marshmallow import Schema, EXCLUDE, fields, post_load
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 
 
 class Principal(db.Model):

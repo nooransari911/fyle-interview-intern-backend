@@ -42,5 +42,5 @@ def authenticate_principal(func):
         else:
             assertions.assert_found(None, 'No such api')
 
-        return func(p, *args, **kwargs)
+        return func(p, **kwargs)
     return wrapper

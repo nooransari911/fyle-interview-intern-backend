@@ -80,19 +80,19 @@ def upgrade():
     db.session.flush()
 
     Assignment.submit(
-        _id=assignment_1.id,
+        id=assignment_1.id,
         teacher_id=teacher_1.id,
         auth_principal=AuthPrincipal(user_id=student_1.user_id, student_id=student_1.id)
     )
 
     Assignment.submit(
-        _id=assignment_3.id,
+        id=assignment_3.id,
         teacher_id=teacher_2.id,
         auth_principal=AuthPrincipal(user_id=student_2.user_id, student_id=student_2.id)
     )
 
     Assignment.submit(
-        _id=assignment_4.id,
+        id=assignment_4.id,
         teacher_id=teacher_2.id,
         auth_principal=AuthPrincipal(user_id=student_2.user_id, student_id=student_2.id)
     )

@@ -1,5 +1,8 @@
 from core import db
 from core.libs import helpers
+from core.models.users import User
+from marshmallow import Schema, EXCLUDE, fields, post_load
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 
 
 class Teacher(db.Model):
@@ -11,3 +14,11 @@ class Teacher(db.Model):
 
     def __repr__(self):
         return '<Teacher %r>' % self.id
+
+    def filter(cls, *criterion):
+        db_query = db.session.query(cls)
+        return db_query.filter(*criterion)
+
+    @classmethod
+    def list_all_teachers(cls):
+        return cls.filter(1 == 1).all()

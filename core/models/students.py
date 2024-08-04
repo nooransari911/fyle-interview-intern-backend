@@ -1,6 +1,7 @@
 from core import db
 from core.libs import helpers
-
+from marshmallow import Schema, EXCLUDE, fields, post_load
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
 
 class Student(db.Model):
     __tablename__ = 'students'
@@ -11,3 +12,5 @@ class Student(db.Model):
 
     def __repr__(self):
         return '<Student %r>' % self.id
+
+
