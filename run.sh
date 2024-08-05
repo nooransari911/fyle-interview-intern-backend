@@ -7,6 +7,8 @@ set -e
 # find . -type d \( -name env -o -name venv  \) -prune -false -o -name "*.pyc" -exec rm -rf {} \;
 
 # Run required migrations
+ export PYTHONPATH=/home/ansarimn/Downloads/fyle-interview-intern-backend/core/:/home/ansarimn/Downloads/fyle-interview-intern-backend/core/tests/:$PYTHONPATH
+export PYTHONPATH=/home/ansarimn/Downloads/fyle-interview-intern-backend/:$PYTHONPATH
 export FLASK_APP=core/server.py
 
 # flask db init -d core/migrations/

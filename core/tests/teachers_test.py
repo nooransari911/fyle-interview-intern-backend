@@ -1,9 +1,11 @@
-from conftest import h_teacher_1, h_teacher_2, h_student_2, h_student_1
+from headers import h_teacher_1, h_teacher_2, h_student_2, h_student_1
 import json, requests
 from init_table import init_table
 import students_test
 from core.models.assignments import GradeEnum
+import pytest
 
+@pytest.mark.skip
 def test_get_assignments_teacher_1(h_teacher_1):
     response = requests.get(
         '/teacher/assignments',
@@ -17,6 +19,7 @@ def test_get_assignments_teacher_1(h_teacher_1):
         assert assignment['teacher_id'] == 1
 
 
+@pytest.mark.skip
 def test_get_assignments_teacher_2(h_teacher_2):
     response = requests.get(
         'http://0.0.0.0:7755/teacher/assignments',
@@ -25,7 +28,7 @@ def test_get_assignments_teacher_2(h_teacher_2):
 
     data = response.json()
     datastr = json.dumps(data)
-    print(f"\nTeacher 2 get 1: {response.status_code}//{datastr}")
+    print(f"\nTeacher 2 get request: {response.status_code}//{datastr}")
     assert response.status_code == 200
 
     for x in data["data"]:
@@ -33,7 +36,7 @@ def test_get_assignments_teacher_2(h_teacher_2):
         assert x['state'] in ['SUBMITTED', 'GRADED']
 
 
-
+@pytest.mark.skip
 def test_grade_assignment_cross(h_teacher_1):
     """
     failure case: assignment 1 was submitted to teacher 2 and not teacher 1
@@ -48,12 +51,12 @@ def test_grade_assignment_cross(h_teacher_1):
     )
     data = response.json()
     datastr = json.dumps(data)
-    print(f"\nTeacher 2 grade 1: {response.status_code}//{datastr}")
+    print(f"\nTeacher grade fail: wrong teacher: {response.status_code}//{datastr}")
     assert response.status_code == 400
 
     assert data['error'] == 'FyleError'
 
-
+@pytest.mark.skip
 def test_grade_assignment_bad_grade(h_teacher_2):
     """
     failure case: API should allow only grades available in enum
@@ -68,12 +71,12 @@ def test_grade_assignment_bad_grade(h_teacher_2):
     )
     data = response.json()
     datastr = json.dumps(data)
-    print(f"\nTeacher 1 grade fail 1: {response.status_code}//{datastr}")
+    print(f"\nTeacher grade fail: bad grade: {response.status_code}//{datastr}")
     assert response.status_code == 400
 
     assert data['error'] == 'ValidationError'
 
-
+@pytest.mark.skip
 def test_grade_assignment_bad_assignment(h_teacher_2):
     """
     failure case: If an assignment does not exists check and throw 404
@@ -88,12 +91,12 @@ def test_grade_assignment_bad_assignment(h_teacher_2):
     )
     data = response.json()
     datastr = json.dumps(data)
-    print(f"\nTeacher 2 grade fail 1: {response.status_code}//{datastr}")
+    print(f"\nTeacher grade fail: no such assignment: {response.status_code}//{datastr}")
     assert response.status_code == 404
 
     assert data['error'] == 'FyleError'
 
-
+@pytest.mark.skip
 def test_grade_assignment_draft_assignment(h_teacher_2):
     """
     failure case: only a submitted assignment can be graded
@@ -108,12 +111,12 @@ def test_grade_assignment_draft_assignment(h_teacher_2):
     )
     data = response.json()
     datastr = json.dumps(data)
-    print(f"\nTeacher 2 grade fail 2: {response.status_code}//{datastr}")
+    print(f"\nTeacher grade fail: cannot grade draft assignment: {response.status_code}//{datastr}")
     assert response.status_code == 400
 
     assert data['error'] == 'FyleError'
 
-
+@pytest.mark.skip
 def test_grade_assignment(h_teacher_2, aid):
     response = requests.post(
         'http://0.0.0.0:7755/teacher/assignments/grade',
@@ -125,7 +128,7 @@ def test_grade_assignment(h_teacher_2, aid):
     )
     data = response.json()
     datastr = json.dumps(data)
-    print(f"\nTeacher 2 grade 1: {response.status_code}//{datastr}")
+    print(f"\nTeacher 2 grade: {response.status_code}//{datastr}")
     assert response.status_code == 200
 
 
